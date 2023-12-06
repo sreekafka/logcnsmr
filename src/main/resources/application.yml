@@ -1,0 +1,29 @@
+spring:
+  datasource:
+    url: ${JDBC_DATABASE_URL}
+    username: ${JDBC_DATABASE_USERNAME}
+    password: ${JDBC_DATABASE_PASSWORD}
+  kafka:
+    bootstrap-servers: ${BOOTSTRAP_SERVERS}
+    properties:
+      security:
+        protocol: SASL_PLAINTEXT
+      sasl:
+        mechanism: GSSAPI
+        kerberos:
+          service:
+            name: kafka
+    listener:
+      ack-mode: manual_immediate
+    consumer:
+      topic: cob-log-dev
+      groupId: cob_log_group
+      auto-offset-reset: earliest
+      enable-auto-commit: false
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: "health,info,metrics"
